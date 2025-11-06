@@ -17,15 +17,23 @@ const useAzureOpenAI = process.env.AZURE_OPENAI_ENDPOINT && process.env.AZURE_OP
 
 if (useAzureOpenAI) {
   // Azure OpenAI configuration
+  const baseURL = `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}`;
+  console.log('🔧 Configuring Azure OpenAI:');
+  console.log('   Endpoint:', process.env.AZURE_OPENAI_ENDPOINT);
+  console.log('   Deployment:', process.env.AZURE_OPENAI_DEPLOYMENT);
+  console.log('   API Version:', process.env.AZURE_OPENAI_API_VERSION || '2024-08-01-preview');
+  console.log('   Full URL:', baseURL);
+
   openai = new OpenAI({
     apiKey: process.env.AZURE_OPENAI_KEY,
-    baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}`,
+    baseURL: baseURL,
     defaultQuery: { 'api-version': process.env.AZURE_OPENAI_API_VERSION || '2024-08-01-preview' },
     defaultHeaders: { 'api-key': process.env.AZURE_OPENAI_KEY }
   });
   console.log('✓ Using Azure OpenAI Service');
 } else {
   // Standard OpenAI configuration
+  console.log('🔧 Configuring Standard OpenAI');
   openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
   });
@@ -150,10 +158,19 @@ app.post('/api/chat', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('❌ Error in /api/chat:');
+    console.error('   Message:', error.message);
+    console.error('   Stack:', error.stack);
+
+    if (error.response) {
+      console.error('   API Response Status:', error.response.status);
+      console.error('   API Response Data:', error.response.data);
+    }
+
     res.status(500).json({
       error: 'An error occurred processing your request',
-      details: error.message
+      details: error.message,
+      type: error.constructor.name
     });
   }
 });
@@ -169,7 +186,28 @@ app.post('/api/reset', (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  const health = {
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    provider: useAzureOpenAI ? 'Azure OpenAI' : 'OpenAI',
+    configuration: {}
+  };
+
+  if (useAzureOpenAI) {
+    health.configuration = {
+      endpoint: process.env.AZURE_OPENAI_ENDPOINT ? 'Set' : 'Missing',
+      deployment: process.env.AZURE_OPENAI_DEPLOYMENT ? 'Set' : 'Missing',
+      apiKey: process.env.AZURE_OPENAI_KEY ? 'Set' : 'Missing',
+      apiVersion: process.env.AZURE_OPENAI_API_VERSION || '2024-08-01-preview'
+    };
+  } else {
+    health.configuration = {
+      apiKey: process.env.OPENAI_API_KEY ? 'Set' : 'Missing',
+      model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview'
+    };
+  }
+
+  res.json(health);
 });
 
 // Helper function to generate conversation IDs
