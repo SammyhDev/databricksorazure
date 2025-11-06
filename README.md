@@ -64,12 +64,23 @@ npm install
 cp .env.example .env
 ```
 
-4. Add your OpenAI API key to the `.env` file:
-```
-OPENAI_API_KEY=your_actual_api_key_here
-```
+4. Configure your AI provider in the `.env` file:
 
-You can get an API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+**Option A: Using Standard OpenAI**
+```
+OPENAI_API_KEY=sk-your-openai-key-here
+OPENAI_MODEL=gpt-4-turbo-preview
+```
+Get an API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+
+**Option B: Using Azure OpenAI**
+```
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
+AZURE_OPENAI_KEY=your-azure-openai-key
+AZURE_OPENAI_DEPLOYMENT=gpt-4.1
+AZURE_OPENAI_API_VERSION=2024-08-01-preview
+```
+Get your endpoint and key from [Azure Portal](https://portal.azure.com)
 
 ## Usage
 
@@ -94,28 +105,34 @@ http://localhost:3000
 
 ### Environment Variables
 
+The application supports both OpenAI and Azure OpenAI. Configure one set of variables:
+
+#### Standard OpenAI Configuration
 - `OPENAI_API_KEY` (required): Your OpenAI API key
 - `OPENAI_MODEL` (optional): Model to use (default: `gpt-4-turbo-preview`)
-  - Options: `gpt-4-turbo-preview`, `gpt-4`, `gpt-3.5-turbo`
+  - Options: `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-4.1`, `gpt-4`, `gpt-3.5-turbo`, `o1-preview`, `o1-mini`
 - `PORT` (optional): Server port (default: `3000`)
 
-### Using Different AI Providers
+#### Azure OpenAI Configuration
+- `AZURE_OPENAI_ENDPOINT` (required): Your Azure OpenAI resource endpoint
+  - Example: `https://your-resource.openai.azure.com`
+  - **Important**: Do NOT include `/openai/deployments/...` in the endpoint
+- `AZURE_OPENAI_KEY` (required): Your Azure OpenAI API key
+- `AZURE_OPENAI_DEPLOYMENT` (required): Your deployment name
+  - Example: `gpt-4.1`, `gpt-35-turbo`, etc.
+- `AZURE_OPENAI_API_VERSION` (optional): API version (default: `2024-08-01-preview`)
+  - Common versions: `2024-08-01-preview`, `2024-02-15-preview`, `2023-05-15`
 
-The application currently uses OpenAI's API. To use Azure OpenAI or other providers:
+**Note**: If Azure OpenAI variables are set, they will take precedence over standard OpenAI configuration.
 
-1. Install the appropriate SDK
-2. Modify the client initialization in [server.js](server.js)
-3. Update the API call in the `/api/chat` endpoint
+### Finding Your Azure OpenAI Configuration
 
-Example for Azure OpenAI:
-```javascript
-const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
+From your URL: `https://databricksvsazure-resource.cognitiveservices.azure.com/openai/deployments/gpt-4.1/chat/completions?api-version=2025-01-01-preview`
 
-const client = new OpenAIClient(
-  process.env.AZURE_OPENAI_ENDPOINT,
-  new AzureKeyCredential(process.env.AZURE_OPENAI_KEY)
-);
-```
+Extract:
+- **Endpoint**: `https://databricksvsazure-resource.cognitiveservices.azure.com`
+- **Deployment**: `gpt-4.1`
+- **API Version**: `2025-01-01-preview`
 
 ## API Endpoints
 

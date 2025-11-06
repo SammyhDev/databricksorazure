@@ -11,10 +11,26 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// Initialize OpenAI client (supports both OpenAI and Azure OpenAI)
+let openai;
+const useAzureOpenAI = process.env.AZURE_OPENAI_ENDPOINT && process.env.AZURE_OPENAI_KEY;
+
+if (useAzureOpenAI) {
+  // Azure OpenAI configuration
+  openai = new OpenAI({
+    apiKey: process.env.AZURE_OPENAI_KEY,
+    baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}`,
+    defaultQuery: { 'api-version': process.env.AZURE_OPENAI_API_VERSION || '2024-08-01-preview' },
+    defaultHeaders: { 'api-key': process.env.AZURE_OPENAI_KEY }
+  });
+  console.log('✓ Using Azure OpenAI Service');
+} else {
+  // Standard OpenAI configuration
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+  console.log('✓ Using OpenAI API');
+}
 
 // System prompt for the AI advisor
 const SYSTEM_PROMPT = `You are an expert technical advisor specializing in cloud data platforms and analytics. Your role is to help users make informed decisions between Azure/Microsoft stack and Databricks for their data and analytics needs.
@@ -99,13 +115,19 @@ app.post('/api/chat', async (req, res) => {
       ...history
     ];
 
-    // Call OpenAI API
-    const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
+    // Call OpenAI API (model parameter ignored for Azure OpenAI deployments)
+    const completionParams = {
       messages: messages,
       temperature: 0.7,
       max_tokens: 1500
-    });
+    };
+
+    // Only add model parameter if NOT using Azure OpenAI (deployment name is in the URL)
+    if (!useAzureOpenAI) {
+      completionParams.model = process.env.OPENAI_MODEL || 'gpt-4-turbo-preview';
+    }
+
+    const completion = await openai.chat.completions.create(completionParams);
 
     const assistantMessage = completion.choices[0].message.content;
 
