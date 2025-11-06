@@ -4,15 +4,28 @@ An AI-powered chat-based web agent that helps technical teams make informed deci
 
 ## Deploy to Azure
 
-Deploy this application to Azure with one click:
+### 🎯 **Recommended: Use the Interactive Deployment Wizard**
 
-### Option 1: Azure App Service (Recommended for most users)
+**[→ Open Deployment Wizard](https://sammyhdev.github.io/databricksorazure/deploy.html)** ✨
+
+The wizard provides:
+- 🎨 Beautiful step-by-step interface
+- 📝 Dropdown menus instead of manual input
+- ✅ Automatic validation of your configuration
+- 💡 Helpful hints and examples
+- 🚀 One-click deploy when ready
+
+---
+
+### Or Deploy Directly:
+
+#### Option 1: Azure App Service (Recommended)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSammyhDev%2Fdatabricksorazure%2Fmain%2Fazuredeploy.json)
 
 **Best for**: Quick deployment, automatic scaling, easy management
 
-### Option 2: Azure Container Apps (Advanced)
+#### Option 2: Azure Container Apps (Advanced)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSammyhDev%2Fdatabricksorazure%2Fmain%2Fazuredeploy-containerapp.json)
 
