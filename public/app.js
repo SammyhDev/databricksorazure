@@ -86,15 +86,16 @@ async function handleSendMessage() {
         // Update conversation ID
         conversationId = data.conversationId;
 
-        // Add bot response to chat
-        addMessage(data.message, 'bot');
+        // Add bot response to chat with typing effect
+        addMessage(data.message, 'bot', false, true);
 
     } catch (error) {
         console.error('Error:', error);
         addMessage(
             'Sorry, I encountered an error processing your request. Please make sure the server is running and configured correctly.',
             'bot',
-            true
+            true,
+            false
         );
     } finally {
         setLoading(false);
@@ -102,7 +103,7 @@ async function handleSendMessage() {
 }
 
 // Add message to chat
-function addMessage(content, sender, isError = false) {
+function addMessage(content, sender, isError = false, useTypingEffect = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message`;
 
@@ -114,15 +115,59 @@ function addMessage(content, sender, isError = false) {
         messageContent.style.color = '#c33';
     }
 
-    // Convert markdown-like formatting to HTML
-    const formattedContent = formatMessage(content);
-    messageContent.innerHTML = formattedContent;
-
     messageDiv.appendChild(messageContent);
     chatMessages.appendChild(messageDiv);
 
+    if (sender === 'bot' && useTypingEffect && !isError) {
+        // Typing effect for bot messages
+        typeMessage(content, messageContent);
+    } else {
+        // Instant display for user messages and errors
+        const formattedContent = formatMessage(content);
+        messageContent.innerHTML = formattedContent;
+    }
+
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Type out message with animation
+function typeMessage(content, element) {
+    const formattedContent = formatMessage(content);
+    element.innerHTML = '';
+    element.style.opacity = '0';
+
+    // Fade in the container
+    setTimeout(() => {
+        element.style.transition = 'opacity 0.3s';
+        element.style.opacity = '1';
+    }, 50);
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = formattedContent;
+
+    let currentIndex = 0;
+    const text = tempDiv.innerText;
+    const speed = 15; // milliseconds per character
+
+    function type() {
+        if (currentIndex < text.length) {
+            // Re-format the partial text to maintain HTML structure
+            const partialText = text.substring(0, currentIndex + 1);
+            element.innerHTML = formatMessage(partialText);
+            currentIndex++;
+
+            // Scroll to bottom as we type
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(type, speed);
+        } else {
+            // Final formatted version
+            element.innerHTML = formattedContent;
+        }
+    }
+
+    type();
 }
 
 // Format message with basic markdown support
