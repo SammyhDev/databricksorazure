@@ -28,17 +28,17 @@ Deploy this application to Azure with one click:
 
 **For Standard OpenAI:**
 1. Set `useAzureOpenAI` to **FALSE** (default)
-2. Enter your **OpenAI API Key**
-3. Leave Azure OpenAI fields empty
+2. Enter your **OpenAI API Key** (replace the default placeholder)
+3. Leave Azure OpenAI fields with their defaults
 4. Select OpenAI Model (or leave default)
 
 **For Azure OpenAI:**
 1. Set `useAzureOpenAI` to **TRUE**
-2. Enter your **Azure OpenAI Endpoint** (e.g., `https://your-resource.openai.azure.com`)
-3. Enter your **Azure OpenAI Key**
-4. Enter your **Azure OpenAI Deployment** name (e.g., `gpt-4.1`)
-5. Optionally update API version (default: `2024-08-01-preview`)
-6. Leave standard OpenAI API Key empty
+2. **Leave OpenAI API Key field as-is** (keep the default placeholder value)
+3. Enter your **Azure OpenAI Endpoint** (e.g., `https://databricksvsazure-resource.cognitiveservices.azure.com`)
+4. Enter your **Azure OpenAI Key**
+5. Enter your **Azure OpenAI Deployment** name (e.g., `gpt-4.1`)
+6. Optionally update API version (e.g., `2025-01-01-preview` or leave default)
 
 **Common settings:**
 - **App Name**: A unique name for your application

@@ -18,9 +18,9 @@
     },
     "openaiApiKey": {
       "type": "securestring",
-      "defaultValue": "",
+      "defaultValue": "not-required-if-using-azure-openai",
       "metadata": {
-        "description": "Your OpenAI API Key (get it from https://platform.openai.com/api-keys). Required if NOT using Azure OpenAI."
+        "description": "Your OpenAI API Key (get it from https://platform.openai.com/api-keys). Leave default value if using Azure OpenAI."
       }
     },
     "openaiModel": {
