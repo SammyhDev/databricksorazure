@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure vs Databricks Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🤖 Azure vs Databricks Advisor</h1>
+            <p class="subtitle">AI-powered guidance for your cloud data platform decision</p>
+        </header>
+
+        <div class="info-banner">
+            <div class="info-item">
+                <strong>Azure/Microsoft Stack</strong>
+                <span>Synapse, Data Factory, Power BI, Azure ML</span>
+            </div>
+            <div class="info-divider">vs</div>
+            <div class="info-item">
+                <strong>Databricks</strong>
+                <span>Unified Analytics, Delta Lake, MLflow</span>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>👋 Hello! I'm your Azure vs Databricks advisor. I can help you compare these platforms across:</p>
+                        <ul>
+                            <li>💰 Cost & Pricing Models</li>
+                            <li>🔧 Technical Capabilities (Data Processing, ML/AI)</li>
+                            <li>🔗 Integration & Ecosystem</li>
+                            <li>📈 Scalability & Performance</li>
+                            <li>🔒 Security & Governance</li>
+                        </ul>
+                        <p>What would you like to know? Feel free to share your specific use case, current setup, or any questions you have!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <textarea
+                        id="userInput"
+                        placeholder="Ask me anything about Azure vs Databricks..."
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton" class="send-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-actions">
+                    <button id="resetButton" class="action-button">🔄 New Conversation</button>
+                    <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="suggestions">
+            <p class="suggestions-title">💡 Quick questions to get started:</p>
+            <button class="suggestion-chip" data-message="What are the main cost differences between Azure Synapse and Databricks?">Cost comparison</button>
+            <button class="suggestion-chip" data-message="We're a Microsoft shop using Power BI heavily. Should we still consider Databricks?">Microsoft ecosystem fit</button>
+            <button class="suggestion-chip" data-message="What are the pros and cons of each for machine learning workloads?">ML/AI capabilities</button>
+            <button class="suggestion-chip" data-message="Can we use both Azure and Databricks together? What would that look like?">Hybrid approach</button>
+        </div>
+
+        <footer class="footer">
+            <p>💡 Tip: Share details about your use case, team size, and current infrastructure for more tailored advice</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
