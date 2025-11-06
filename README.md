@@ -2,6 +2,32 @@
 
 An AI-powered chat-based web agent that helps technical teams make informed decisions between Azure/Microsoft stack and Databricks for their data and analytics needs.
 
+## Deploy to Azure
+
+Deploy this application to Azure with one click:
+
+### Option 1: Azure App Service (Recommended for most users)
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSammyhDev%2Fdatabricksorazure%2Fmain%2Fazuredeploy.json)
+
+**Best for**: Quick deployment, automatic scaling, easy management
+
+### Option 2: Azure Container Apps (Advanced)
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSammyhDev%2Fdatabricksorazure%2Fmain%2Fazuredeploy-containerapp.json)
+
+**Best for**: Microservices, container-based workflows, advanced scaling
+
+### What you'll need for deployment:
+- An Azure subscription ([create one free](https://azure.microsoft.com/free/))
+- An OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+
+The deployment wizard will prompt you for:
+- **OpenAI API Key**: Your OpenAI API key (securely stored)
+- **OpenAI Model**: Choose between GPT-4, GPT-3.5-turbo, etc.
+- **App Name**: A unique name for your application
+- **Pricing Tier**: Select based on your needs (Free tier available for App Service)
+
 ## Features
 
 - **AI-Powered Guidance**: Uses OpenAI's GPT models to provide intelligent, context-aware comparisons
@@ -169,16 +195,76 @@ Some ideas for enhancement:
 - Cost calculator tools
 - Architecture diagram generator
 
-## Production Deployment
+## Azure Deployment Details
 
-For production deployment:
+### Azure App Service Deployment
+
+The ARM template automatically configures:
+- Node.js 18 LTS runtime
+- HTTPS-only access
+- Automatic deployment from GitHub
+- Environment variables for OpenAI API
+- App Service Plan with your selected tier
+
+**Pricing Tiers**:
+- **F1 (Free)**: Good for testing, limited resources
+- **B1 (Basic)**: Recommended for production, $13/month
+- **S1 (Standard)**: Better performance and features, $70/month
+
+### Azure Container Apps Deployment
+
+The ARM template includes:
+- Container environment with Log Analytics
+- Auto-scaling (1-3 replicas)
+- HTTPS ingress configuration
+- Secure secret management for API keys
+- Resource allocation (0.5 CPU, 1GB RAM per container)
+
+### Manual Azure Deployment
+
+If you prefer manual deployment:
+
+#### Using Azure CLI:
+```bash
+# Login to Azure
+az login
+
+# Create resource group
+az group create --name azure-databricks-advisor-rg --location eastus
+
+# Deploy using ARM template
+az deployment group create \
+  --resource-group azure-databricks-advisor-rg \
+  --template-file azuredeploy.json \
+  --parameters openaiApiKey="your-api-key"
+```
+
+#### Using Docker:
+```bash
+# Build the Docker image
+docker build -t azure-databricks-advisor .
+
+# Run locally
+docker run -p 8080:8080 \
+  -e OPENAI_API_KEY="your-api-key" \
+  -e OPENAI_MODEL="gpt-4-turbo-preview" \
+  azure-databricks-advisor
+
+# Push to Azure Container Registry
+az acr build --registry yourregistry \
+  --image azure-databricks-advisor:latest .
+```
+
+## Production Best Practices
+
+For production deployments:
 
 1. Use a proper database (PostgreSQL, MongoDB) instead of in-memory storage
 2. Add rate limiting and security middleware
 3. Implement authentication if needed
 4. Use environment-specific configurations
-5. Set up monitoring and logging
-6. Consider using a managed service (Heroku, AWS, Azure, etc.)
+5. Set up monitoring and logging with Application Insights
+6. Enable Azure Key Vault for secret management
 
 Example with additional security:
 ```bash
