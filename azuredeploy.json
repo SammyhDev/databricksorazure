@@ -18,8 +18,9 @@
     },
     "openaiApiKey": {
       "type": "securestring",
+      "defaultValue": "",
       "metadata": {
-        "description": "Your OpenAI API Key (get it from https://platform.openai.com/api-keys)"
+        "description": "Your OpenAI API Key (get it from https://platform.openai.com/api-keys). Required if NOT using Azure OpenAI."
       }
     },
     "openaiModel": {
@@ -52,35 +53,35 @@
       "type": "bool",
       "defaultValue": false,
       "metadata": {
-        "description": "Set to true if using Azure OpenAI Service instead of OpenAI API"
+        "description": "Set to TRUE if using Azure OpenAI Service. Set to FALSE if using standard OpenAI API."
       }
     },
     "azureOpenAIEndpoint": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Azure OpenAI endpoint (e.g., https://your-resource.openai.azure.com). Only required if useAzureOpenAI is true."
+        "description": "[REQUIRED IF useAzureOpenAI=true] Azure OpenAI endpoint without /openai/deployments path. Example: https://your-resource.openai.azure.com"
       }
     },
     "azureOpenAIKey": {
       "type": "securestring",
       "defaultValue": "",
       "metadata": {
-        "description": "Azure OpenAI API key. Only required if useAzureOpenAI is true."
+        "description": "[REQUIRED IF useAzureOpenAI=true] Your Azure OpenAI API key from Azure Portal"
       }
     },
     "azureOpenAIDeployment": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Azure OpenAI deployment name (e.g., gpt-4.1). Only required if useAzureOpenAI is true."
+        "description": "[REQUIRED IF useAzureOpenAI=true] Azure OpenAI deployment name. Example: gpt-4.1, gpt-35-turbo"
       }
     },
     "azureOpenAIApiVersion": {
       "type": "string",
       "defaultValue": "2024-08-01-preview",
       "metadata": {
-        "description": "Azure OpenAI API version. Only used if useAzureOpenAI is true."
+        "description": "[OPTIONAL] Azure OpenAI API version. Common: 2024-08-01-preview, 2025-01-01-preview, 2023-05-15. Only used if useAzureOpenAI is true."
       }
     },
     "sku": {

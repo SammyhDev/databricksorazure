@@ -20,11 +20,27 @@ Deploy this application to Azure with one click:
 
 ### What you'll need for deployment:
 - An Azure subscription ([create one free](https://azure.microsoft.com/free/))
-- An OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+- **EITHER**:
+  - An OpenAI API key ([get one here](https://platform.openai.com/api-keys)), **OR**
+  - An Azure OpenAI Service deployment ([create one here](https://portal.azure.com))
 
-The deployment wizard will prompt you for:
-- **OpenAI API Key**: Your OpenAI API key (securely stored)
-- **OpenAI Model**: Choose between GPT-4, GPT-3.5-turbo, etc.
+### Deployment wizard will prompt you for:
+
+**For Standard OpenAI:**
+1. Set `useAzureOpenAI` to **FALSE** (default)
+2. Enter your **OpenAI API Key**
+3. Leave Azure OpenAI fields empty
+4. Select OpenAI Model (or leave default)
+
+**For Azure OpenAI:**
+1. Set `useAzureOpenAI` to **TRUE**
+2. Enter your **Azure OpenAI Endpoint** (e.g., `https://your-resource.openai.azure.com`)
+3. Enter your **Azure OpenAI Key**
+4. Enter your **Azure OpenAI Deployment** name (e.g., `gpt-4.1`)
+5. Optionally update API version (default: `2024-08-01-preview`)
+6. Leave standard OpenAI API Key empty
+
+**Common settings:**
 - **App Name**: A unique name for your application
 - **Pricing Tier**: Select based on your needs (Free tier available for App Service)
 
