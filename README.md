@@ -1,6 +1,6 @@
 # Cloud Data Platform Advisor
 
-An AI-powered decision support tool that helps technical teams evaluate and choose the right cloud data platform for their needs, incorporating guidance from Microsoft's Cloud Adoption Framework for AI.
+An AI-powered decision support tool that helps technical teams understand **when to use Microsoft Stack, when to use Databricks, and how they work together**. Incorporates guidance from Microsoft's Cloud Adoption Framework for AI to provide strategic, consultative recommendations for choosing and combining cloud data platforms.
 
 ## Deploy to Azure
 
@@ -47,6 +47,10 @@ An AI-powered decision support tool that helps technical teams evaluate and choo
 - **AI-Powered Decision Support**: Uses OpenAI's GPT models to provide consultative, decision-tree guidance
 - **Cloud Adoption Framework Integration**: Incorporates Microsoft's Cloud Adoption Framework for AI best practices
 - **Strategic Planning Focus**: Emphasizes business value, organizational maturity, and governance considerations
+- **Critical Decision Framework**: Helps users understand:
+  - **When to use Microsoft Stack** (Azure Synapse, Fabric, Azure ML): Best for deep Microsoft ecosystem integration, Power BI-centric workloads, existing Microsoft licenses, and standard BI scenarios
+  - **When to use Databricks**: Ideal for advanced data science/ML, notebook-based development, multi-cloud strategy, Delta Lake architecture, and complex data transformations
+  - **How they work together**: Explores optimal hybrid approaches like Databricks + Power BI, Databricks + Azure Data Factory, and more
 - **Comprehensive Evaluation**: Guides users through:
   - Business objectives and use case assessment
   - Platform maturity levels (SaaS/PaaS/IaaS)
@@ -54,9 +58,10 @@ An AI-powered decision support tool that helps technical teams evaluate and choo
   - Technical capabilities for specific use cases
   - Data governance and responsible AI requirements
   - Integration with existing tools and ecosystems
+  - Hybrid architecture patterns and integration points
 - **Interactive Chat Interface**: Modern, responsive UI with neutral, professional design
 - **Context-Aware**: Maintains conversation context for follow-up questions
-- **Balanced Perspective**: Objective guidance for both Azure and Databricks, including hybrid approaches
+- **Hybrid-First Approach**: Actively explores tandem solutions combining Microsoft stack and Databricks for optimal outcomes
 
 ## Prerequisites
 
