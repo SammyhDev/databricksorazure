@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azure vs Databricks Advisor</title>
+    <title>Cloud Data Platform Advisor</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🤖 Azure vs Databricks Advisor</h1>
-            <p class="subtitle">AI-powered guidance for your cloud data platform decision</p>
+            <h1>Cloud Data Platform Advisor</h1>
+            <p class="subtitle">AI-powered guidance for choosing your data platform</p>
         </header>
 
         <div class="info-banner">
@@ -19,7 +19,7 @@
                 <strong>Azure/Microsoft Stack</strong>
                 <span>Synapse, Data Factory, Power BI, Azure ML</span>
             </div>
-            <div class="info-divider">vs</div>
+            <div class="info-divider">+</div>
             <div class="info-item">
                 <strong>Databricks</strong>
                 <span>Unified Analytics, Delta Lake, MLflow</span>
@@ -30,15 +30,16 @@
             <div id="chatMessages" class="chat-messages">
                 <div class="message bot-message">
                     <div class="message-content">
-                        <p>👋 Hello! I'm your Azure vs Databricks advisor. I can help you compare these platforms across:</p>
+                        <p>Hello! I'm here to help you choose the right cloud data platform for your needs.</p>
+                        <p>I can guide you through considerations like:</p>
                         <ul>
-                            <li>💰 Cost & Pricing Models</li>
-                            <li>🔧 Technical Capabilities (Data Processing, ML/AI)</li>
-                            <li>🔗 Integration & Ecosystem</li>
-                            <li>📈 Scalability & Performance</li>
-                            <li>🔒 Security & Governance</li>
+                            <li>Cost and pricing models</li>
+                            <li>Technical capabilities for your use case</li>
+                            <li>Integration with your existing tools</li>
+                            <li>Scalability and performance needs</li>
+                            <li>Security and governance requirements</li>
                         </ul>
-                        <p>What would you like to know? Feel free to share your specific use case, current setup, or any questions you have!</p>
+                        <p>Tell me about your requirements, and I'll help you evaluate the best options.</p>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                 <div class="input-wrapper">
                     <textarea
                         id="userInput"
-                        placeholder="Ask me anything about Azure vs Databricks..."
+                        placeholder="Describe your data platform requirements..."
                         rows="1"
                     ></textarea>
                     <button id="sendButton" class="send-button">
@@ -67,15 +68,15 @@
         </div>
 
         <div class="suggestions">
-            <p class="suggestions-title">💡 Quick questions to get started:</p>
-            <button class="suggestion-chip" data-message="What are the main cost differences between Azure Synapse and Databricks?">Cost comparison</button>
-            <button class="suggestion-chip" data-message="We're a Microsoft shop using Power BI heavily. Should we still consider Databricks?">Microsoft ecosystem fit</button>
-            <button class="suggestion-chip" data-message="What are the pros and cons of each for machine learning workloads?">ML/AI capabilities</button>
-            <button class="suggestion-chip" data-message="Can we use both Azure and Databricks together? What would that look like?">Hybrid approach</button>
+            <p class="suggestions-title">Example questions:</p>
+            <button class="suggestion-chip" data-message="What are the main cost differences between Azure Synapse and Databricks?">Compare costs</button>
+            <button class="suggestion-chip" data-message="We're a Microsoft shop using Power BI heavily. What should we consider?">Microsoft integration</button>
+            <button class="suggestion-chip" data-message="What are the trade-offs for machine learning workloads?">ML capabilities</button>
+            <button class="suggestion-chip" data-message="Can we use both platforms together? What would that look like?">Hybrid approach</button>
         </div>
 
         <footer class="footer">
-            <p>💡 Tip: Share details about your use case, team size, and current infrastructure for more tailored advice</p>
+            <p>Share details about your use case, team, and current infrastructure for tailored recommendations</p>
         </footer>
     </div>
 
