@@ -4,7 +4,7 @@
   "parameters": {
     "appName": {
       "type": "string",
-      "defaultValue": "[concat('azure-databricks-advisor-', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('cloud-data-advisor-', uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Name of the web app (must be globally unique)"
       }
@@ -16,72 +16,29 @@
         "description": "Location for all resources"
       }
     },
-    "openaiApiKey": {
-      "type": "securestring",
-      "defaultValue": "not-required-if-using-azure-openai",
-      "metadata": {
-        "description": "Your OpenAI API Key (get it from https://platform.openai.com/api-keys). Leave default value if using Azure OpenAI."
-      }
-    },
-    "openaiModel": {
-      "type": "string",
-      "defaultValue": "gpt-4-turbo-preview",
-      "allowedValues": [
-        "gpt-4o",
-        "gpt-4o-mini",
-        "gpt-4-turbo",
-        "gpt-4-turbo-preview",
-        "gpt-4.1",
-        "gpt-4",
-        "gpt-3.5-turbo",
-        "o1-preview",
-        "o1-mini",
-        "custom"
-      ],
-      "metadata": {
-        "description": "OpenAI model to use (select 'custom' to manually specify a model name in customModelName parameter)"
-      }
-    },
-    "customModelName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Custom model name (only used if openaiModel is set to 'custom'). Example: gpt-4.1, gpt-4o-2024-05-13"
-      }
-    },
-    "useAzureOpenAI": {
-      "type": "bool",
-      "defaultValue": false,
-      "metadata": {
-        "description": "Set to TRUE if using Azure OpenAI Service. Set to FALSE if using standard OpenAI API."
-      }
-    },
     "azureOpenAIEndpoint": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
-        "description": "[REQUIRED IF useAzureOpenAI=true] Azure OpenAI endpoint without /openai/deployments path. Example: https://your-resource.openai.azure.com"
+        "description": "Azure OpenAI endpoint (base URL only, without /openai/deployments path). Example: https://your-resource.openai.azure.com"
       }
     },
     "azureOpenAIKey": {
       "type": "securestring",
-      "defaultValue": "",
       "metadata": {
-        "description": "[REQUIRED IF useAzureOpenAI=true] Your Azure OpenAI API key from Azure Portal"
+        "description": "Your Azure OpenAI API key from Azure Portal"
       }
     },
     "azureOpenAIDeployment": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
-        "description": "[REQUIRED IF useAzureOpenAI=true] Azure OpenAI deployment name. Example: gpt-4.1, gpt-35-turbo"
+        "description": "Azure OpenAI deployment name. Example: gpt-4, gpt-4o, gpt-35-turbo"
       }
     },
     "azureOpenAIApiVersion": {
       "type": "string",
       "defaultValue": "2024-08-01-preview",
       "metadata": {
-        "description": "[OPTIONAL] Azure OpenAI API version. Common: 2024-08-01-preview, 2025-01-01-preview, 2023-05-15. Only used if useAzureOpenAI is true."
+        "description": "Azure OpenAI API version. Common: 2024-08-01-preview, 2025-01-01-preview, 2023-05-15"
       }
     },
     "sku": {
@@ -117,8 +74,7 @@
   },
   "variables": {
     "appServicePlanName": "[concat(parameters('appName'), '-plan')]",
-    "webAppName": "[parameters('appName')]",
-    "actualModelName": "[if(equals(parameters('openaiModel'), 'custom'), parameters('customModelName'), parameters('openaiModel'))]"
+    "webAppName": "[parameters('appName')]"
   },
   "resources": [
     {
@@ -150,28 +106,20 @@
           "appCommandLine": "npm start",
           "appSettings": [
             {
-              "name": "OPENAI_API_KEY",
-              "value": "[parameters('openaiApiKey')]"
-            },
-            {
-              "name": "OPENAI_MODEL",
-              "value": "[variables('actualModelName')]"
-            },
-            {
               "name": "AZURE_OPENAI_ENDPOINT",
-              "value": "[if(parameters('useAzureOpenAI'), parameters('azureOpenAIEndpoint'), '')]"
+              "value": "[parameters('azureOpenAIEndpoint')]"
             },
             {
               "name": "AZURE_OPENAI_KEY",
-              "value": "[if(parameters('useAzureOpenAI'), parameters('azureOpenAIKey'), '')]"
+              "value": "[parameters('azureOpenAIKey')]"
             },
             {
               "name": "AZURE_OPENAI_DEPLOYMENT",
-              "value": "[if(parameters('useAzureOpenAI'), parameters('azureOpenAIDeployment'), '')]"
+              "value": "[parameters('azureOpenAIDeployment')]"
             },
             {
               "name": "AZURE_OPENAI_API_VERSION",
-              "value": "[if(parameters('useAzureOpenAI'), parameters('azureOpenAIApiVersion'), '')]"
+              "value": "[parameters('azureOpenAIApiVersion')]"
             },
             {
               "name": "PORT",

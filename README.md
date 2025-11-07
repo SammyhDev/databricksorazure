@@ -18,29 +18,17 @@ An AI-powered decision support tool that helps technical teams understand **when
 
 ### What you'll need for deployment:
 - An Azure subscription ([create one free](https://azure.microsoft.com/free/))
-- **EITHER**:
-  - An OpenAI API key ([get one here](https://platform.openai.com/api-keys)), **OR**
-  - An Azure OpenAI Service deployment ([create one here](https://portal.azure.com))
+- An Azure OpenAI Service deployment ([create one here](https://portal.azure.com))
 
-### Deployment parameters:
+### Deployment parameters you'll provide:
 
-**For Standard OpenAI:**
-1. Set `useAzureOpenAI` to **FALSE** (default)
-2. Enter your **OpenAI API Key** (replace the default placeholder)
-3. Leave Azure OpenAI fields with their defaults
-4. Select OpenAI Model (or leave default)
-
-**For Azure OpenAI:**
-1. Set `useAzureOpenAI` to **TRUE**
-2. **Leave OpenAI API Key field as-is** (keep the default placeholder value)
-3. Enter your **Azure OpenAI Endpoint** (e.g., `https://databricksvsazure-resource.cognitiveservices.azure.com`)
-4. Enter your **Azure OpenAI Key**
-5. Enter your **Azure OpenAI Deployment** name (e.g., `gpt-4.1`)
-6. Optionally update API version (e.g., `2025-01-01-preview` or leave default)
-
-**Common settings:**
-- **App Name**: A unique name for your application
-- **Pricing Tier**: Select based on your needs (Free tier available for App Service)
+1. **Azure OpenAI Endpoint**: Your Azure OpenAI base URL (without `/openai/deployments` path)
+   - Example: `https://your-resource.openai.azure.com`
+2. **Azure OpenAI Key**: Your API key from Azure Portal
+3. **Azure OpenAI Deployment**: Your deployment name (e.g., `gpt-4`, `gpt-4o`, `gpt-35-turbo`)
+4. **API Version** (optional): Defaults to `2024-08-01-preview`
+5. **App Name** (optional): Unique name for your application (auto-generated if not provided)
+6. **Pricing Tier** (optional): App Service tier (F1=Free, B1=Basic recommended)
 
 ## Features
 
@@ -63,11 +51,11 @@ An AI-powered decision support tool that helps technical teams understand **when
 - **Context-Aware**: Maintains conversation context for follow-up questions
 - **Hybrid-First Approach**: Actively explores tandem solutions combining Microsoft stack and Databricks for optimal outcomes
 
-## Prerequisites
+## Prerequisites for Local Development
 
 - Node.js (v14 or higher)
 - npm or yarn
-- OpenAI API key
+- Either OpenAI API key or Azure OpenAI Service (Azure OpenAI required for Azure deployment)
 
 ## Installation
 
@@ -88,21 +76,23 @@ cp .env.example .env
 
 4. Configure your AI provider in the `.env` file:
 
-**Option A: Using Standard OpenAI**
+**Option A: Using Standard OpenAI (Local Development Only)**
 ```
 OPENAI_API_KEY=sk-your-openai-key-here
 OPENAI_MODEL=gpt-4-turbo-preview
 ```
 Get an API key from [OpenAI Platform](https://platform.openai.com/api-keys)
 
-**Option B: Using Azure OpenAI**
+**Option B: Using Azure OpenAI (Recommended for Azure Deployment)**
 ```
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
 AZURE_OPENAI_KEY=your-azure-openai-key
-AZURE_OPENAI_DEPLOYMENT=gpt-4.1
+AZURE_OPENAI_DEPLOYMENT=gpt-4
 AZURE_OPENAI_API_VERSION=2024-08-01-preview
 ```
 Get your endpoint and key from [Azure Portal](https://portal.azure.com)
+
+**Note**: Azure deployment via "Deploy to Azure" button requires Azure OpenAI.
 
 ## Usage
 
