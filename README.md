@@ -1,23 +1,8 @@
-# Azure vs Databricks Advisor
+# Cloud Data Platform Advisor
 
-An AI-powered chat-based web agent that helps technical teams make informed decisions between Azure/Microsoft stack and Databricks for their data and analytics needs.
+An AI-powered decision support tool that helps technical teams evaluate and choose the right cloud data platform for their needs, incorporating guidance from Microsoft's Cloud Adoption Framework for AI.
 
 ## Deploy to Azure
-
-### 🎯 **Recommended: Use the Interactive Deployment Wizard**
-
-**[→ Open Deployment Wizard](https://sammyhdev.github.io/databricksorazure/deploy.html)** ✨
-
-The wizard provides:
-- 🎨 Beautiful step-by-step interface
-- 📝 Dropdown menus instead of manual input
-- ✅ Automatic validation of your configuration
-- 💡 Helpful hints and examples
-- 🚀 One-click deploy when ready
-
----
-
-### Or Deploy Directly:
 
 #### Option 1: Azure App Service (Recommended)
 
@@ -37,7 +22,7 @@ The wizard provides:
   - An OpenAI API key ([get one here](https://platform.openai.com/api-keys)), **OR**
   - An Azure OpenAI Service deployment ([create one here](https://portal.azure.com))
 
-### Deployment wizard will prompt you for:
+### Deployment parameters:
 
 **For Standard OpenAI:**
 1. Set `useAzureOpenAI` to **FALSE** (default)
@@ -59,16 +44,19 @@ The wizard provides:
 
 ## Features
 
-- **AI-Powered Guidance**: Uses OpenAI's GPT models to provide intelligent, context-aware comparisons
-- **Comprehensive Coverage**: Compares platforms across:
-  - Cost & Pricing Models
-  - Technical Capabilities (Data Processing, ML/AI)
-  - Integration & Ecosystem
-  - Scalability & Performance
-  - Security & Governance
-- **Interactive Chat Interface**: Modern, responsive UI with conversation history
+- **AI-Powered Decision Support**: Uses OpenAI's GPT models to provide consultative, decision-tree guidance
+- **Cloud Adoption Framework Integration**: Incorporates Microsoft's Cloud Adoption Framework for AI best practices
+- **Strategic Planning Focus**: Emphasizes business value, organizational maturity, and governance considerations
+- **Comprehensive Evaluation**: Guides users through:
+  - Business objectives and use case assessment
+  - Platform maturity levels (SaaS/PaaS/IaaS)
+  - Cost considerations and TCO analysis
+  - Technical capabilities for specific use cases
+  - Data governance and responsible AI requirements
+  - Integration with existing tools and ecosystems
+- **Interactive Chat Interface**: Modern, responsive UI with neutral, professional design
 - **Context-Aware**: Maintains conversation context for follow-up questions
-- **Technical Focus**: Tailored for mixed audiences with emphasis on technical decision-makers
+- **Balanced Perspective**: Objective guidance for both Azure and Databricks, including hybrid approaches
 
 ## Prerequisites
 
@@ -215,10 +203,11 @@ azure-databricks-advisor/
 ## Example Questions
 
 - "What are the main cost differences between Azure Synapse and Databricks?"
-- "We're a Microsoft shop using Power BI heavily. Should we still consider Databricks?"
-- "What are the pros and cons of each for machine learning workloads?"
-- "Can we use both Azure and Databricks together? What would that look like?"
-- "Our team has 5 data engineers and 3 data scientists. Which platform would be easier to adopt?"
+- "We're a Microsoft shop using Power BI heavily. What should we consider?"
+- "What are the trade-offs for machine learning workloads?"
+- "Can we use both platforms together? What would that look like?"
+- "How do I determine if we need SaaS, PaaS, or IaaS for our AI initiatives?"
+- "What data governance tools should we consider for our platform?"
 
 ## Customization
 
